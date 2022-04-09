@@ -188,3 +188,68 @@ Caused by: java.lang.IllegalArgumentException: hostname can't be null
 	at com.takeoff.iot.modbus.aggregate.config.IotModbusServerConfig.run(IotModbusServerConfig.java:61)
 	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:772)
 	... 5 common frames omitted
+2022-04-09 22:36:11,610 [main] ERROR [org.springframework.boot.SpringApplication] SpringApplication.java:823 - Application run failed
+java.lang.IllegalStateException: Failed to execute ApplicationRunner
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:775)
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:762)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:319)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1215)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1204)
+	at com.takeoff.iot.modbus.App.main(App.java:9)
+Caused by: java.lang.NullPointerException: null
+	at com.takeoff.iot.modbus.server.MiiUdpServer.addListener(MiiUdpServer.java:143)
+	at com.takeoff.iot.modbus.aggregate.config.IotModbusServerConfig.run(IotModbusServerConfig.java:64)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:772)
+	... 5 common frames omitted
+2022-04-09 22:40:58,692 [main] ERROR [org.springframework.boot.SpringApplication] SpringApplication.java:823 - Application run failed
+java.lang.IllegalStateException: Failed to execute ApplicationRunner
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:775)
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:762)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:319)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1215)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1204)
+	at com.takeoff.iot.modbus.App.main(App.java:9)
+Caused by: java.lang.NullPointerException: null
+	at com.takeoff.iot.modbus.server.MiiUdpServer.addListener(MiiUdpServer.java:144)
+	at com.takeoff.iot.modbus.aggregate.config.IotModbusServerConfig.run(IotModbusServerConfig.java:67)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:772)
+	... 5 common frames omitted
+2022-04-09 22:41:43,022 [main] ERROR [org.springframework.boot.SpringApplication] SpringApplication.java:823 - Application run failed
+java.lang.IllegalStateException: Failed to execute ApplicationRunner
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:775)
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:762)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:319)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1215)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1204)
+	at com.takeoff.iot.modbus.App.main(App.java:9)
+Caused by: java.lang.NullPointerException: null
+	at com.takeoff.iot.modbus.server.MiiUdpServer.addListener(MiiUdpServer.java:144)
+	at com.takeoff.iot.modbus.aggregate.config.IotModbusServerConfig.run(IotModbusServerConfig.java:67)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:772)
+	... 5 common frames omitted
+2022-04-09 23:21:44,951 [main] ERROR [org.springframework.boot.SpringApplication] SpringApplication.java:823 - Application run failed
+java.lang.IllegalStateException: Failed to execute ApplicationRunner
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:775)
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:762)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:319)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1215)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1204)
+	at com.takeoff.iot.modbus.App.main(App.java:9)
+Caused by: java.lang.NullPointerException: null
+	at com.takeoff.iot.modbus.server.MiiUdpServer.addListener(MiiUdpServer.java:144)
+	at com.takeoff.iot.modbus.aggregate.config.IotModbusServerConfig.run(IotModbusServerConfig.java:68)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:772)
+	... 5 common frames omitted
+2022-04-09 23:22:24,399 [main] ERROR [org.springframework.boot.SpringApplication] SpringApplication.java:823 - Application run failed
+java.lang.IllegalStateException: Failed to execute ApplicationRunner
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:775)
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:762)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:319)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1215)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1204)
+	at com.takeoff.iot.modbus.App.main(App.java:9)
+Caused by: java.lang.NullPointerException: null
+	at com.takeoff.iot.modbus.server.MiiUdpServer.addListener(MiiUdpServer.java:144)
+	at com.takeoff.iot.modbus.aggregate.config.IotModbusServerConfig.run(IotModbusServerConfig.java:68)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:772)
+	... 5 common frames omitted
