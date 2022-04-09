@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.takeoff.iot</groupId>
+	<artifactId>iot-modbus</artifactId>
+	<version>3.2.4-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>iot-modbus</name>
+	<url>https://www.takeoff.org/</url>
+	<description>物联网通讯协议</description>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.1.8.RELEASE</version>
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
+		<maven-compiler-plugin>3.6.2</maven-compiler-plugin>
+		<maven-source-plugin.version>2.1</maven-source-plugin.version>
+		<java.version>1.8</java.version>
+		<junit.version>4.12</junit.version>
+		<lombok.version>1.18.22</lombok.version>
+		<slf4j-api.version>1.7.32</slf4j-api.version>
+		<slf4j-simple.version>1.7.32</slf4j-simple.version>
+		<fastjson.version>1.2.7</fastjson.version>
+		<bcprov-jdk15on.version>1.68</bcprov-jdk15on.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${lombok.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j-api.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>${slf4j-simple.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<!--添加fastjson依赖 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>${fastjson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcprov-jdk15on</artifactId>
+			<version>${bcprov-jdk15on.version}</version>
+		</dependency>
+	</dependencies>
+
+	<!-- Sonatype Nexus私有库 -->
+	<distributionManagement>
+		<repository>
+			<id>sonatype-nexus-releases</id>
+			<name>Sonatype Nexus Release Repository</name>
+			<url>http://192.168.1.40:8006/nexus/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>sonatype-nexus-snapshots</id>
+			<name>Sonatype Nexus Snapshot Repository</name>
+			<url>http://192.168.1.40:8006/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+    <modules>
+		<module>iot-modbus-common</module>
+		<module>iot-modbus-netty</module>
+		<module>iot-modbus-server</module>
+		<module>iot-modbus-client</module>
+		<module>iot-modbus-serialport</module>
+        <module>iot-modbus-web</module>
+  </modules>
+</project>

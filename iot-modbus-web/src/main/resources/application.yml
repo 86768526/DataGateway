@@ -1,0 +1,30 @@
+# Tomcat
+server:
+  port: 8080
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 1000
+    min-spare-threads: 30
+  servlet:
+    context-path: /iot-modbus-web
+
+iot:
+  netty: # netty通讯
+    server:
+      open: true
+      port: 4000
+      thread: 10
+      udpport: 4001
+    client:
+      open: false
+      ip: 127.0.0.1
+      port: 5000
+      thread: 10
+      device-group: 1
+  serialport: #串口通讯
+    open: false
+    port: COM1
+    netty: true #是否使用netty对数据进行拆包处理
+    timeout: 5000 #链接超时时间，不使用netty对数据进行拆包处理时必填
+    baudrate: 115200
+    thread: 10
