@@ -28,6 +28,7 @@ import io.netty.channel.ChannelPipeline;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
+import io.netty.channel.socket.nio.NioDatagramChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
@@ -189,5 +190,4 @@ public class MiiServer extends ChannelInitializer<SocketChannel> implements MiiC
 	public MiiChannel get(String name) {
 		return groups.get(name);
 	}
-
 }

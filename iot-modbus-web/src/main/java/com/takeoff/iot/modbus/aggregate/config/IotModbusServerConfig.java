@@ -40,9 +40,15 @@ public class IotModbusServerConfig implements ApplicationRunner {
 
 	@Resource
 	private NmeaDataListener nmeaDataListener;
+
+	@Resource
+	private UdpNmeaDataListener udpNmeaDataListener;
 	
 	@Getter
 	private MiiServer miiServer;
+
+	@Getter
+	private MiiUdpServer udpServer;
 
 	@Override
     public void run(ApplicationArguments args) throws Exception {
@@ -57,8 +63,10 @@ public class IotModbusServerConfig implements ApplicationRunner {
 			miiServer.addListener(MiiMessage.NMEA, nmeaDataListener);
 			//log.info("IOT通讯协议已开启Socket服务，占用端口： " + iotModbusServerProperties.getPort() + ",执行线程池线程数:" + iotModbusServerProperties.getThread());
 			miiServer.start();
-			MiiUdpServer udpServer = new MiiUdpServer("0.0.0.0",4001);
+			udpServer = new MiiUdpServer("0.0.0.0",4001);
+			MiiUdpServer udpServer2 = new MiiUdpServer("0.0.0.0",4007);
 			udpServer.start();
+			udpServer2.start();
 		}else{
 			log.info("IOT通讯协议未开启Socket服务");
 		}

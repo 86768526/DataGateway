@@ -32,7 +32,7 @@ public class NmeaDataListener implements MiiListener {
 				log.info("解析字节流出错:"+e.getMessage());
 				e.printStackTrace();
 			}
-			log.info(message.command() +"接收到NMEA协议数据: "+NmeaStr);
+			log.info(message.command() +"接收到NMEA协议tcp数据: "+NmeaStr);
         }
 	}
 

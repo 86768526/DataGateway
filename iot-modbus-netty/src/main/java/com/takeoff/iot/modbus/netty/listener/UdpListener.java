@@ -2,6 +2,7 @@ package com.takeoff.iot.modbus.netty.listener;
 
 import com.takeoff.iot.modbus.common.message.MiiMessage;
 import com.takeoff.iot.modbus.netty.channel.MiiChannel;
+import io.netty.channel.socket.DatagramChannel;
 import io.netty.channel.socket.DatagramPacket;
 
 @FunctionalInterface

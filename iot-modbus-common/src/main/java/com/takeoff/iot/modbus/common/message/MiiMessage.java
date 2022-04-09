@@ -61,7 +61,7 @@ public interface MiiMessage {
 			LCDPOWER = 0x0B, LCDCLOCK = 0x0C, HM = 0x0D, ESCALE = 0x0E, BARCODE = 0x0F,
 			FINGER = 0x10, MCUCONFIG = 0x11, OTA = 0x12, APDS = 0x13, INFO = 0x14,
 			WLED = 0x15, WLEDACTION = 0x16, CABPH = 0x17, LAYPH = 0x18, CARDPH = 0x19,
-			HEARTBEAT = 33, CHECKSLEVE = 0x3F,NMEA = 99;
+			HEARTBEAT = 33, CHECKSLEVE = 0x3F,NMEA = 99,UDPNMEA = 98;
 	
 	/**
 	 * 指静脉数据常量.  <br>

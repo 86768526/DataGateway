@@ -16,6 +16,7 @@ import com.takeoff.iot.modbus.netty.channel.MiiChannelGroup;
 import com.takeoff.iot.modbus.netty.data.factory.MiiServerDataFactory;
 import com.takeoff.iot.modbus.netty.handle.*;
 import com.takeoff.iot.modbus.netty.listener.MiiListener;
+import com.takeoff.iot.modbus.netty.listener.UdpListener;
 import com.takeoff.iot.modbus.server.message.sender.MiiServerMessageSender;
 import com.takeoff.iot.modbus.server.message.sender.ServerMessageSender;
 import io.netty.bootstrap.Bootstrap;
@@ -34,13 +35,8 @@ import io.netty.handler.timeout.IdleStateHandler;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
-/**
- * 类功能说明：设备通讯服务端<br/>
- * 公司名称：TF（腾飞）开源 <br/>
- * 作者：luorongxi <br/>
- */
 @Slf4j
-public class MiiUdpServer extends ChannelInitializer<NioDatagramChannel> implements MiiControlCentre {
+public class MiiUdpServer {
 
 	private static final int IDLE_TIMEOUT = 60;
 	private EventLoopGroup workerGroup;
@@ -50,7 +46,7 @@ public class MiiUdpServer extends ChannelInitializer<NioDatagramChannel> impleme
 	@Getter
 	private MiiChannelGroup groups;
 	private ServerMessageSender sender;
-	private MiiListenerHandler handler;
+	private UdpServerHandler handler;
 	private MiiDataFactory dataFactory;
 
 	/**
@@ -72,9 +68,9 @@ public class MiiUdpServer extends ChannelInitializer<NioDatagramChannel> impleme
 	public MiiUdpServer(String address,int port, int nThread){
 		this.port = port;
 		this.address = address;
-//		this.groups = new MiiChannelGroup();
+		this.groups = new MiiChannelGroup();
 //		this.sender = new MiiServerMessageSender(this.groups);
-//		this.handler = new MiiListenerHandler(this.groups);
+		this.handler = new UdpServerHandler();
 //		this.handler.addListener(MiiMessage.HEARTBEAT, new MiiListener() {
 //
 //			@Override
@@ -102,7 +98,6 @@ public class MiiUdpServer extends ChannelInitializer<NioDatagramChannel> impleme
 				.handler(new UdpServerHandler());
 		future = serverBootstrap.bind(address,port);
 	}
-
 	/**
 	 * 停止服务
 	 */
@@ -110,84 +105,4 @@ public class MiiUdpServer extends ChannelInitializer<NioDatagramChannel> impleme
 		future.channel().closeFuture();
 		workerGroup.shutdownGracefully();
 	}
-
-	/**
-	 * 根据名称/地址找已连接设备组
-	 * 名称/地址不存在或者未连接时返回null值
-	 * @param name 名称/地址
-	 * @return 设备组
-	 */
-	public MiiChannel group(String name) {
-		return get(name);
-	}
-
-	/**
-	 * 列出所有已连接设备组清单
-	 * @return 所有已连接身边组清单
-	 */
-	public List<MiiChannel> groups() {
-		return groups.list();
-	}
-
-	public ServerMessageSender sender(){
-		return sender;
-	}
-
-	/**
-	 * 添加接收指定指令的消息监听器
-	 * @param command 指令类型 {@link MiiMessage}
-	 * @param listener 消息监听器
-	 * @return 上一个消息监听器，如果没有返回null
-	 */
-	public MiiListener addListener(int command, MiiListener listener){
-		return handler.addListener(command, listener);
-	}
-
-	/**
-	 * 移除接收指定指令的消息监听器
-	 * @param command 指令类型 {@link MiiMessage}
-	 * @return 移除消息监听器，如果没有返回null
-	 */
-	public MiiListener removeListener(int command){
-		return handler.removeListener(command);
-	}
-
-	@Override
-	protected void initChannel(NioDatagramChannel ch) throws Exception {
-		ChannelPipeline p = ch.pipeline();
-		MiiDeviceGroup group = new MiiDeviceChannel(ch);
-		add(group);
-		p.addLast(new IdleStateHandler(0, 0, IDLE_TIMEOUT * 3, TimeUnit.SECONDS));
-		p.addLast(new ChannelInboundHandlerAdapter(){
-
-			@Override
-			public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
-				if(evt instanceof IdleStateEvent){
-					ctx.disconnect();
-				} else {
-					super.userEventTriggered(ctx, evt);
-				}
-			}
-		});
-		p.addLast(new MiiMessageEncoder());
-		p.addLast(new MiiBasedFrameDecoder());
-		p.addLast(new MiiMessageDecoder(group, dataFactory));
-		p.addLast(handler);
-	}
-
-	@Override
-	public boolean add(MiiChannel channel) {
-		return groups.add(channel);
-	}
-
-	@Override
-	public MiiChannel remove(String name) {
-		return groups.remove(name);
-	}
-
-	@Override
-	public MiiChannel get(String name) {
-		return groups.get(name);
-	}
-
 }
