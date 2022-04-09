@@ -20,12 +20,8 @@ import com.takeoff.iot.modbus.server.message.sender.MiiServerMessageSender;
 import com.takeoff.iot.modbus.server.message.sender.ServerMessageSender;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundHandlerAdapter;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelPipeline;
-import io.netty.channel.EventLoopGroup;
+import io.netty.buffer.UnpooledByteBufAllocator;
+import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.DatagramPacket;
 import io.netty.channel.socket.SocketChannel;
@@ -49,7 +45,7 @@ public class MiiUdpServer extends ChannelInitializer<NioDatagramChannel> impleme
 	private static final int IDLE_TIMEOUT = 60;
 	private EventLoopGroup workerGroup;
 	private ChannelFuture future;
-	private int port,nThread;
+	private int port;
 	private String address;
 	@Getter
 	private MiiChannelGroup groups;
@@ -75,7 +71,6 @@ public class MiiUdpServer extends ChannelInitializer<NioDatagramChannel> impleme
 	 */
 	public MiiUdpServer(String address,int port, int nThread){
 		this.port = port;
-		this.nThread = nThread;
 		this.address = address;
 //		this.groups = new MiiChannelGroup();
 //		this.sender = new MiiServerMessageSender(this.groups);
@@ -97,12 +92,15 @@ public class MiiUdpServer extends ChannelInitializer<NioDatagramChannel> impleme
 	 * 启动服务
 	 */
 	public void start(){
-		workerGroup = new NioEventLoopGroup(nThread);
-		Bootstrap b = new Bootstrap();
-		b.group( workerGroup)
+		workerGroup = new NioEventLoopGroup();
+		Bootstrap serverBootstrap = new Bootstrap();
+		serverBootstrap
+				.group(workerGroup)
 				.channel(NioDatagramChannel.class)
-				.handler(new LoggingHandler(LogLevel.INFO));
-		future = b.bind(address,port);
+				.option(ChannelOption.SO_BROADCAST, true)
+				.option(ChannelOption.ALLOCATOR, UnpooledByteBufAllocator.DEFAULT)
+				.handler(new UdpServerHandler());
+		future = serverBootstrap.bind(address,port);
 	}
 
 	/**

@@ -8,9 +8,9 @@
 		<artifactId>iot-modbus</artifactId>
 		<version>3.2.4-SNAPSHOT</version>
 	</parent>
-	<artifactId>iot-modbus-test</artifactId>
+	<artifactId>iot-modbus-web</artifactId>
 	<packaging>jar</packaging>
-	<name>iot-modbus-test</name>
+	<name>iot-modbus-web</name>
 	<description>物联网通讯协议测试</description>
 	
 	<properties>
