@@ -4,11 +4,7 @@ import org.springframework.context.ApplicationEvent;
 
 import lombok.Getter;
 
-/**
- * 类功能说明：接收数据<br/>
- * 公司名称：TF（腾飞）开源 <br/>
- * 作者：luorongxi <br/>
- */
+
 @Getter
 public class ReceiveDataEvent extends ApplicationEvent {
 

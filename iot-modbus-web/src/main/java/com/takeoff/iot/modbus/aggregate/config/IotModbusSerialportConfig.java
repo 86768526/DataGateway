@@ -9,11 +9,7 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.Resource;
 
-/**
- * 类功能说明：通讯协议客户端配置注册<br/>
- * 公司名称：TF（腾飞）开源 <br/>
- * 作者：luorongxi <br/>
- */
+
 @Slf4j
 @Configuration
 public class IotModbusSerialportConfig implements ApplicationRunner {

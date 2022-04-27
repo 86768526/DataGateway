@@ -25,11 +25,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-/**
- * 类功能说明：串口通讯接口实现类<br/>
- * 公司名称：TF（腾飞）开源 <br/>
- * 作者：luorongxi <br/>
- */
+
 @Slf4j
 @Service
 public class SerialportServiceImpl implements SerialportService {

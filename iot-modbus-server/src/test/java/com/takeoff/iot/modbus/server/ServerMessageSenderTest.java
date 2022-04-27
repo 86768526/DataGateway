@@ -9,11 +9,7 @@ import org.bouncycastle.util.encoders.Hex;
 import org.junit.Assert;
 import org.junit.Test;
 
-/**
- * 类功能说明：下发指令测试<br/>
- * 公司名称：TF（腾飞）开源 <br/>
- * 作者：luorongxi <br/>
- */
+
 @Slf4j
 public class ServerMessageSenderTest {
 

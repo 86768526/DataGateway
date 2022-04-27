@@ -7,11 +7,7 @@ import com.takeoff.iot.modbus.common.entity.LockStatus;
 
 import lombok.Getter;
 
-/**
- * 类功能说明：门锁数据<br/>
- * 公司名称：TF（腾飞）开源 <br/>
- * 作者：luorongxi <br/>
- */
+
 @Getter
 public class LockData extends ReceiveDataEvent {
 

@@ -6,11 +6,7 @@ import com.takeoff.iot.modbus.common.data.MiiFingerData;
 
 import lombok.Getter;
 
-/**
- * 类功能说明：指静脉数据<br/>
- * 公司名称：TF（腾飞）开源 <br/>
- * 作者：luorongxi <br/>
- */
+
 @Getter
 public class FingerData extends ReceiveDataEvent {
 

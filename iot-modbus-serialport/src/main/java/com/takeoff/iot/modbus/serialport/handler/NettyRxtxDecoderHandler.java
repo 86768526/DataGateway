@@ -10,11 +10,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageDecoder;
 import lombok.extern.slf4j.Slf4j;
 
-/**
- * 类功能说明：netty接收串口数据进行拆包处理 <br/>
- * 公司名称：TF（腾飞）开源 <br/>
- * 作者：luorongxi <br/>
- */
+
 @Slf4j
 public class NettyRxtxDecoderHandler extends MessageToMessageDecoder<ByteBuf> {
     

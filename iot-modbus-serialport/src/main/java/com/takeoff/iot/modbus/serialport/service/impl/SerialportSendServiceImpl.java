@@ -20,11 +20,7 @@ import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * 类功能说明：串口发送指令接口实现类<br/>
- * 公司名称：TF（腾飞）开源 <br/>
- * 作者：luorongxi <br/>
- */
+
 @Slf4j
 @Service
 public class SerialportSendServiceImpl implements SerialportSendService {

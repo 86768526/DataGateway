@@ -10,11 +10,7 @@ import org.bouncycastle.util.encoders.Hex;
 
 import lombok.extern.slf4j.Slf4j;
 
-/**
- * 类功能说明：指静脉指令处理<br/>
- * 公司名称：TF（腾飞）开源 <br/>
- * 作者：luorongxi <br/>
- */
+
 @Slf4j
 public class MiiFingerData extends MiiSlotData implements Finger {
 

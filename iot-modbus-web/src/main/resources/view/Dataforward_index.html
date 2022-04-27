@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    <title>GPS设置</title>
+   
+<!--    <link rel="shortcut icon" href="favicon.ico">-->
+    <link th:href="@{/static/css/bootstrap.min.css?v=3.3.5}" rel="stylesheet">
+    <link th:href="@{/static/css/font-awesome.min.css}" rel="stylesheet">
+    <link th:href="@{/static/css/plugins/iCheck/custom.css}" rel="stylesheet">
+    <link th:href="@{/static/css/plugins/switchery/switchery.css}" rel="stylesheet">
+    <link th:href="@{/static/css/animate.min.css}" rel="stylesheet">
+    <link th:href="@{/static/css/style.min.css?v=4.0.0}" rel="stylesheet">
+    <!-- <script src="js/jquery.min.js?v=2.1.4"></script> -->
+    <script th:src="@{/static/js/jquery.js}" type="text/javascript"></script>
+    <script th:src="@{/static/js/bootstrap.min.js?v=3.3.5}"></script>
+    <script type="text/javascript">
+   
+        function radiochange(obj){
+            if (obj == 1) {
+                    $(".comServer").show();
+                    $(".TCPServer").hide();
+                    $(".TCPClient").hide();
+                    $(".UDP").hide();
+            } else if(obj == 2){
+                    $(".comServer").hide();
+                    $(".TCPServer").show();
+                    $(".TCPClient").hide();
+                    $(".UDP").hide();
+            }else if(obj == 3){
+                    $(".comServer").hide();
+                    $(".TCPServer").hide();
+                    $(".TCPClient").show();
+                    $(".UDP").hide();
+            }else{
+                    $(".comServer").hide();
+                    $(".TCPServer").hide();
+                    $(".TCPClient").hide();
+                    $(".UDP").show();
+            }
+        }
+     
+    </script>
+    <style type="text/css">
+        .switch{
+            width: 40px;
+            height: 20px;
+            border-radius: 50px;
+            border: 1px solid #efefef;
+            position: relative;
+
+        }
+        .switch-btn{
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 1px solid #efefef;
+            position: absolute;
+            background-color: #fff;
+            transition:left .5s;
+            -moz-transition:left .5s; /* Firefox 4 */
+            -webkit-transition:left .5s; /* Safari and Chrome */
+            -o-transition:left .5s; /* Opera */
+            cursor: pointer;
+        }
+        .switch-bg{
+            background-color: #fd9152;
+            width: 20px;
+            height: 20px;
+            border-radius: 50px;
+            transition: width .5s;
+            -moz-transition: width .5s; /* Firefox 4 */
+            -webkit-transition:  width .5s; /* Safari and Chrome */
+        }
+        .switch-btn.on{
+            left: 20px;
+        }
+        .switch-bg.on{
+            width: 40px;
+        }
+    </style>
+</head>
+
+<body class="gray-bg">
+    <div  id="app"  class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>接口信息</h5>                       
+                    </div>
+                    <div class="ibox-content">
+                        <form method="get" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">接口类型</label>
+                                <div class="col-sm-10">
+                                    <div class="radio  col-sm-2">
+                                        <label>
+                                                <input type="radio" style="margin-top: 1px;" name="udptype" value="udp"  checked=""> <i></i>UPD</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label"></label>
+                                <div class="col-sm-11">
+                                       <div class="col-sm-4">
+                                           <div class="form-group">
+                                               <label class="col-sm-4 control-label">数据源:</label>
+
+                                               <div class="col-sm-8">
+                                                   <select class="form-control m-b" name="udpdatasource">
+                                                       <option value="ais">AIS</option>
+                                                       <option value="gps">GPS</option>
+                                                       <option value="adsb">ADS-B</option>
+                                                       <option value="redar">雷达</option>
+                                                   </select>
+                                               </div>
+                                           </div>
+                                       </div>
+                                       <div class="col-sm-4">
+                                           <div class="form-group">
+                                               <label class="col-sm-4 control-label">发送频率:</label>
+
+                                               <div class="col-sm-8">
+                                                   <select class="form-control m-b" name="udpsendfq">
+                                                       <option value="1" >1秒</option>
+                                                       <option value="3">3秒</option>
+                                                       <option value="5">5秒</option>
+                                                       <option value="10">10秒</option>
+                                                   </select>
+                                               </div>
+                                           </div>
+                                       </div>
+                                       <div class="col-sm-4">
+                                           <div class="form-group">
+                                               <label class="col-sm-4 control-label">组播协议：</label>
+
+                                               <div class="col-sm-8">
+                                                   <div class="radio  col-sm-6">
+                                                       <label>
+                                                           <input type="radio" style="margin-top: 1px;" @click="selectunicast" name="unicast" value="1"> <i></i>单播</label>
+                                                   </div>
+                                                   <div class="radio  col-sm-6">
+                                                       <label>
+                                                           <input type="radio" style="margin-top: 1px;" @click="selectmuticast" name="muticast" value="2" > <i></i>组播</label>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label"></label>
+                                <div class="col-sm-11">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">服务器IP:</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" name="udpTansferIp" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">服务器端口:</label>
+
+                                            <div class="col-sm-8">
+                                                <input type="text" name="udpTransferPort" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <button class="btn btn-primary" @click="startUdpTransfer" type="button">开启转发</button>
+                                            <button class="btn btn-primary" @click="stopUdpTransfer" type="button">关闭转发</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>           
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>数据日志</h5>   <button @click ="clearLogArea" class="btn btn-primary" type="button">清空</button>
+                    </div>
+                    <div class="ibox-content">
+                        <div id="datalog" class="form-group" style="min-height:200px;">
+                            <p>数据日志内容显示</p>                            
+                        </div>  
+                    </div>
+                </div>
+            </div>           
+        </div>
+    </div>
+    <script th:src="@{/static/js/vue.js}"></script>
+    <script th:src="@{static/js/jquery.min.js?v=2.1.4}"></script>
+    <script th:src="@{static/js/bootstrap.min.js?v=3.3.5}"></script>
+    <script th:src="@{static/js/content.min.js?v=1.0.0}"></script>
+    <script th:src="@{static/js/plugins/iCheck/icheck.min.js}"></script>
+    <script th:src="@{static/js/plugins/chosen/chosen.jquery.js}"></script>
+    <script th:src="@{static/js/plugins/jsKnob/jquery.knob.js}"></script>
+    <script th:src="@{static/js/plugins/jasny/jasny-bootstrap.min.js}"></script>
+    <script th:src="@{static/js/plugins/datapicker/bootstrap-datepicker.js}"></script>
+    <script th:src="@{static/js/plugins/prettyfile/bootstrap-prettyfile.js}"></script>
+    <script th:src="@{static/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+    <script th:src="@{static/js/plugins/colorpicker/bootstrap-colorpicker.min.js}"></script>
+    <script th:src="@{static/js/plugins/clockpicker/clockpicker.js}"></script>
+    <script th:src="@{static/js/plugins/cropper/cropper.min.js}"></script>
+    <script th:src="@{/static/js/eventsource.js}"></script>
+
+    <script>
+        window.onload = function(){
+            var app = new Vue({
+                el:'#app',
+                data:{
+                    cur:0,
+                    cur2:0
+                },
+                methods: {
+                    stopUdpTransfer:function(){
+                        var  datasource = $("[name='udpdatasource']").val();
+                        var  params = {
+                            "ip": $("[name='udpTansferIp']").val(),
+                            "port": $("[name='udpTransferPort']").val()
+                        }
+                        $.ajax({
+                            type: "POST",
+                            url: datasource+"/stopUdpTransfer",
+                            data:params,
+                            async:false,
+                            success: function(data) {
+                                alert(data.msg);
+                            }
+                        });
+                    },
+                    clearLogArea(){
+                        document.getElementById("datalog").innerHTML = "";
+                    },
+                    startUdpTransfer:function(){
+                        var datasource = $("[name='udpdatasource']").val();
+                        var params = {
+                             "udpsendfq": $("[name='udpsendfq']").val(),
+                             "unicast": $("[name='unicast']").prop("checked"),
+                             "muticast": $("[name='muticast']").prop("checked"),
+                             "ip": $("[name='udpTansferIp']").val(),
+                             "port": $("[name='udpTransferPort']").val()
+                        }
+                        $.ajax({
+                            type: "POST",
+                            url: datasource+"/startUdpTransfer",
+                            data:params,
+                            async:false,
+                            success: function(data){
+                                alert(data.msg);
+                                if (typeof (EventSource) !== "undefined") {
+                                    var source = new EventSourcePolyfill(datasource+"/UdpTransferEventSourceServer"
+                                    //     ,{
+                                    //     headers: {
+                                    //         'port': udpport
+                                    //     }
+                                    // }
+                                    );//,{ withCredentials: true }跨域
+                                    source.onmessage = function (event) {
+                                        //debugger
+                                        document.getElementById("datalog").innerHTML += event.data + "<br>";
+                                    };
+                                    source.onerror = function (event) {
+                                        //debugger
+                                        console.log("error:" + JSON.stringify(event) + JSON.stringify(source));
+                                    }
+                                    source.onopen = function (event) {
+                                        //console.log('开始连接');
+                                        //debugger
+                                        console.log("open:" + JSON.stringify(event));
+                                    }
+                                }
+                                else {
+                                    document.getElementById("datalog").innerHTML = "抱歉，你的浏览器不支持 server-sent 事件...";
+                                }
+                            }
+                        });
+                    },
+                    stopUdpTransfer:function (){
+                        alert("stop");
+                    },
+                    openSwitch:function(){
+                        this.cur = !this.cur;
+                    },
+                    openSwitch2:function (){
+                        this.cur2 = !this.cur2;
+                    },
+                    selectunicast:function (){
+                        $("[name='muticast']").prop("checked",false);
+                    },
+                    selectmuticast:function (){
+                        $("[name='unicast']").prop("checked",false);
+                    }
+                },
+            });
+        }
+    </script>
+</body>
+
+</html>

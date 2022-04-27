@@ -12,11 +12,7 @@ import com.takeoff.iot.modbus.common.utils.IntegerToByteUtil;
 import com.takeoff.iot.modbus.common.utils.JudgeEmptyUtils;
 import org.apache.commons.lang3.ArrayUtils;
 
-/**
- * 类功能说明：LCD数据拼装工厂<br/>
- * 公司名称：TF（腾飞）开源 <br/>
- * 作者：luorongxi <br/>
- */
+
 public class MiiLcdDataBytesFactory implements MiiEntityBytesFactory<LcdData> {
 
 private static final Charset DEFAULT_CHARSET = Charset.forName("GBK");

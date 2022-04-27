@@ -1,10 +1,6 @@
 package com.takeoff.iot.modbus.serialport.enums;
 
-/**
- * 类功能说明：停止位枚举类<br/>
- * 公司名称：TF（腾飞）开源 <br/>
- * 作者：luorongxi <br/>
- */
+
 public enum StopbitsEnum {
 
 	ONE(1, "ONE"),

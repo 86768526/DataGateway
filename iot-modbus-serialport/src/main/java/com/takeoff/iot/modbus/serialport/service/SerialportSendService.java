@@ -5,11 +5,6 @@ import com.takeoff.iot.modbus.common.entity.LcdData;
 
 import java.util.List;
 
-/**
- * 类功能说明：串口发送指令接口<br/>
- * 公司名称：TF（腾飞）开源 <br/>
- * 作者：luorongxi <br/>
- */
 public interface SerialportSendService {
 
     /**

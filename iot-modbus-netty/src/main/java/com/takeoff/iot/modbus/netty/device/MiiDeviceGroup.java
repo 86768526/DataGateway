@@ -2,11 +2,7 @@ package com.takeoff.iot.modbus.netty.device;
 
 import com.takeoff.iot.modbus.netty.channel.MiiChannel;
 
-/**
- * 类功能说明：设备信息<br/>
- * 公司名称：TF（腾飞）开源 <br/>
- * 作者：luorongxi <br/>
- */
+
 public interface MiiDeviceGroup extends MiiChannel {
 	
 	/**

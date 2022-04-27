@@ -1,10 +1,6 @@
 package com.takeoff.iot.modbus.serialport.enums;
 
-/**
- * 类功能说明：校验位枚举类<br/>
- * 公司名称：TF（腾飞）开源 <br/>
- * 作者：luorongxi <br/>
- */
+
 public enum ParityEnum {
 
 	ZERO(0, "ZERO"),

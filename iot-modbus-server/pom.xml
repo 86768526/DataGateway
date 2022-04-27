@@ -23,6 +23,10 @@
             <artifactId>iot-modbus-netty</artifactId>
             <version>${iot-modbus-netty.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

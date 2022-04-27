@@ -2,11 +2,7 @@ package com.takeoff.iot.modbus.common.data;
 
 import org.apache.commons.lang3.ArrayUtils;
 
-/**
- * 类功能说明：包含反馈内容的指令数据处理<br/>
- * 公司名称：TF（腾飞）开源 <br/>
- * 作者：luorongxi <br/>
- */
+
 public class MiiStringData extends MiiSlotData {
 	
 	protected String content;

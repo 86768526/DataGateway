@@ -22,11 +22,7 @@ import io.netty.channel.rxtx.RxtxDeviceAddress;
 import io.netty.handler.codec.string.StringEncoder;
 import lombok.extern.slf4j.Slf4j;
 
-/**
- * 类功能说明：netty链接串口工具类 <br/>
- * 公司名称：TF（腾飞）开源 <br/>
- * 作者：luorongxi <br/>
- */
+
 @Slf4j
 public class NettyRxtxClientUtil {
 	

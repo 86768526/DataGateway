@@ -1,10 +1,6 @@
 package com.takeoff.iot.modbus.common.data;
 
-/**
- * 类功能说明：设备信息数据<br/>
- * 公司名称：TF（腾飞）开源 <br/>
- * 作者：luorongxi <br/>
- */
+
 public class MiiSlotData extends MiiByteArrayData {
 
 	public MiiSlotData(byte[] datas) {

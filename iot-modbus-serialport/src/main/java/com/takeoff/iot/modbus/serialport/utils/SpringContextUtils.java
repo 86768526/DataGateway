@@ -5,11 +5,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
-/**
- * 类功能说明：Spring Context 工具类<br/>
- * 公司名称：TF（腾飞）开源 <br/>
- * 作者：luorongxi <br/>
- */
+
 @Component
 public class SpringContextUtils implements ApplicationContextAware {
 

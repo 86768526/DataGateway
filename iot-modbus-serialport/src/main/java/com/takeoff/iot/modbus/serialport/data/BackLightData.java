@@ -4,11 +4,7 @@ import com.takeoff.iot.modbus.common.data.MiiBackLightData;
 
 import lombok.Getter;
 
-/**
- * 类功能说明：背光灯数据<br/>
- * 公司名称：TF（腾飞）开源 <br/>
- * 作者：luorongxi <br/>
- */
+
 @Getter
 public class BackLightData extends ReceiveDataEvent {
 

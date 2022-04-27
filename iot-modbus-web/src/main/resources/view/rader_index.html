@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    <title>雷达设置</title>
+   
+<!--    <link rel="shortcut icon" href="favicon.ico">-->
+    <link th:href="@{/static/css/bootstrap.min.css?v=3.3.5}" rel="stylesheet">
+    <link th:href="@{/static/css/font-awesome.min.css?v=4.4.0}" rel="stylesheet">
+    <link th:href="@{/static/css/plugins/iCheck/custom.css}" rel="stylesheet">
+    <link th:href="@{/static/css/plugins/switchery/switchery.css}" rel="stylesheet">
+    <link th:href="@{/static/css/animate.min.css}" rel="stylesheet">
+    <link th:href="@{/static/css/style.min.css?v=4.0.0}" rel="stylesheet">
+    <!-- <script src="js/jquery.min.js?v=2.1.4"></script> -->
+    <script th:src="@{/static/js/jquery.js}" language="javascript" type="text/javascript"></script>
+    <script th:src="@{/static/js/bootstrap.min.js?v=3.3.5}"></script>
+    <script type="text/javascript">
+   
+        function radiochange(obj){
+            if (obj == 1) {
+                    $(".comServer").show();
+                    $(".TCPServer").hide();
+                    $(".TCPClient").hide();
+                    $(".UDP").hide();
+            } else if(obj == 2){
+                    $(".comServer").hide();
+                    $(".TCPServer").show();
+                    $(".TCPClient").hide();
+                    $(".UDP").hide();
+            }else if(obj == 3){
+                    $(".comServer").hide();
+                    $(".TCPServer").hide();
+                    $(".TCPClient").show();
+                    $(".UDP").hide();
+            }else{
+                    $(".comServer").hide();
+                    $(".TCPServer").hide();
+                    $(".TCPClient").hide();
+                    $(".UDP").show();
+            }
+        }
+     
+    </script>
+    <style type="text/css">
+        .switch{
+            width: 40px;
+            height: 20px;
+            border-radius: 50px;
+            border: 1px solid #efefef;
+            position: relative;
+
+        }
+        .switch-btn{
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 1px solid #efefef;
+            position: absolute;
+            background-color: #fff;
+            transition:left .5s;
+            -moz-transition:left .5s; /* Firefox 4 */
+            -webkit-transition:left .5s; /* Safari and Chrome */
+            -o-transition:left .5s; /* Opera */
+            cursor: pointer;
+        }
+        .switch-bg{
+            background-color: #fd9152;
+            width: 20px;
+            height: 20px;
+            border-radius: 50px;
+            transition: width .5s;
+            -moz-transition: width .5s; /* Firefox 4 */
+            -webkit-transition:  width .5s; /* Safari and Chrome */
+        }
+        .switch-btn.on{
+            left: 20px;
+        }
+        .switch-bg.on{
+            width: 40px;
+        }
+
+    </style>
+</head>
+
+<body class="gray-bg">
+    <div  id="app" class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>位置信息</h5>                       
+                    </div>
+                    <div class="ibox-content" style="padding: 40px;">
+                        <form role="form" class="form-inline" >
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label text-right" style="position: relative;top: -4px;">经度：</label>   
+                                    <div class="col-sm-8" style="position: relative;top: -12px;">
+                                        <input type="text" placeholder="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label text-right" style="position: relative;top: -4px;">纬度：</label>
+    
+                                    <div class="col-sm-8" style="position: relative;top: -12px;">
+                                        <input type="text" placeholder="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label text-right" style="position: relative;top: -4px;">高度：</label>
+    
+                                    <div class="col-sm-8" style="position: relative;top: -12px;">
+                                        <input type="text" placeholder="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 text-center" style="position: relative;top: -12px;">
+                                <button class="btn btn-success" type="button" style="margin-top:2px;">同步GPS位置</button>
+                                <button class="btn btn-primary" type="button" style="margin-top:2px;margin-left: 10px;">保存位置</button>
+                            </div>                         
+                        </form>
+                    </div>
+                </div>
+            </div>           
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>接口信息</h5>                       
+                    </div>
+                    <div class="ibox-content">
+                        <form method="get" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">接口类型</label>
+                                <div class="col-sm-10">
+                                    <div class="radio  col-sm-2">
+                                        <label  onclick="radiochange(1);">
+                                                <input type="radio" style="margin-top: 1px;" name="a" value="1"> <i></i>串口</label>
+                                    </div>
+                                    <div class="radio  col-sm-2">
+                                            <label onclick="radiochange(2);">
+                                                <input type="radio" style="margin-top: 1px;" name="a" value="2"  checked=""> <i></i>TCP Server</label>
+                                    </div>
+                <!--                    <div class="radio  col-sm-2">
+                                            <label onclick="radiochange(3);">
+                                                <input type="radio" style="margin-top: 1px;" name="a" value="3"> <i></i> TCP Client</label>
+                                    </div>-->
+                                    <div class="radio  col-sm-2">
+                                            <label onclick="radiochange(4);">
+                                                <input type="radio" style="margin-top: 1px;"  name="a"  value="4"> <i></i> UDP</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                   <div class="comServer" style="display: none;">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">端口:</label>
+                
+                                                <div class="col-sm-9">
+                                                    <select class="form-control m-b" name="account">
+                                                        <option>选项 1</option>
+                                                        <option>选项 2</option>
+                                                        <option>选项 3</option>
+                                                        <option>选项 4</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">波特率:</label>
+                
+                                                <div class="col-sm-9">
+                                                    <select class="form-control m-b" name="account">
+                                                        <option>选项 1</option>
+                                                        <option>选项 2</option>
+                                                        <option>选项 3</option>
+                                                        <option>选项 4</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">校验位：</label>
+                
+                                                <div class="col-sm-9">
+                                                    <select class="form-control m-b" name="account">
+                                                        <option>选项 1</option>
+                                                        <option>选项 2</option>
+                                                        <option>选项 3</option>
+                                                        <option>选项 4</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">数据位：</label>
+                
+                                                <div class="col-sm-9">
+                                                    <select class="form-control m-b" name="account">
+                                                        <option>选项 1</option>
+                                                        <option>选项 2</option>
+                                                        <option>选项 3</option>
+                                                        <option>选项 4</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">停止位：</label>
+                
+                                                <div class="col-sm-9">
+                                                    <select class="form-control m-b" name="account">
+                                                        <option>选项 1</option>
+                                                        <option>选项 2</option>
+                                                        <option>选项 3</option>
+                                                        <option>选项 4</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">十六进制：</label>              
+                                                <div class="col-sm-8" style="margin-top: 4px;">
+                                                    <div class="switch">
+                                                        <div class="switch-bg" :class="{on:cur==1}">
+                                                            <div class="switch-btn" :class="{on:cur==1}" @click="openSwitch" ></div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">打开串口：</label>               
+                                                <div class="col-sm-8" style="margin-top: 4px;">
+                                                    <div class="switch">
+                                                        <div class="switch-bg" :class="{on:cur2==1}">
+                                                            <div class="switch-btn" :class="{on:cur2==1}" @click="openSwitch2" ></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <button class="btn btn-primary" type="button">发送数据</button>
+                                            </div>
+                                        </div>
+                                   </div>
+                                   <div class="TCPServer">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">本地IP:</label>
+                
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="password">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">本地端口:</label>
+                
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="password">
+                                                </div>
+                                            </div>
+                                        </div>                                      
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <button class="btn btn-primary" type="button">监听</button>
+                                            </div>
+                                        </div>
+                                    </div>
+<!--                                    <div class="TCPClient" style="display: none;">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">服务器IP:</label>
+                
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="password">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">服务器端口:</label>
+                
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="password">
+                                                </div>
+                                            </div>
+                                        </div>                                      
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <button class="btn btn-primary" type="button">连接</button>
+                                            </div>
+                                        </div>
+                                    </div>-->
+                                    <div class="UDP" style="display: none;">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">服务器IP:</label>
+                
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="password">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">服务器端口:</label>
+                
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="password">
+                                                </div>
+                                            </div>
+                                        </div>                                      
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <button class="btn btn-primary" type="button">连接</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                          
+                        </form>
+                    </div>
+                </div>
+            </div>           
+        </div>
+<!--        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>数据协议</h5>                       
+                    </div>
+                    <div class="ibox-content" style="padding-bottom: 0px;">
+                        <form method="get" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">数据协议</label>
+                                <div class="col-sm-6">
+                                    <select class="form-control m-b" name="account">
+                                        <option>选项 1</option>
+                                        <option>选项 2</option>
+                                        <option>选项 3</option>
+                                        <option>选项 4</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button class="btn btn-primary" type="button">设置</button>
+                                </div>
+                            </div>                          
+                        </form>
+                    </div>
+                </div>
+            </div>           
+        </div>-->
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>数据日志</h5>                       
+                    </div>
+                    <div class="ibox-content">
+                        <div class="form-group" style="min-height:200px;">
+                            <p>数据日志内容显示</p>
+                        </div>  
+                    </div>
+                </div>
+            </div>           
+        </div>
+    </div>
+    <script th:src="@{/static/js/vue.js}"></script>
+    <script th:src="@{static/js/jquery.min.js?v=2.1.4}"></script>
+    <script th:src="@{static/js/bootstrap.min.js?v=3.3.5}"></script>
+    <script th:src="@{static/js/content.min.js?v=1.0.0}"></script>
+    <script th:src="@{static/js/plugins/iCheck/icheck.min.js}"></script>
+    <script th:src="@{static/js/plugins/chosen/chosen.jquery.js}"></script>
+    <script th:src="@{static/js/plugins/jsKnob/jquery.knob.js}"></script>
+    <script th:src="@{static/js/plugins/jasny/jasny-bootstrap.min.js}"></script>
+    <script th:src="@{static/js/plugins/datapicker/bootstrap-datepicker.js}"></script>
+    <script th:src="@{static/js/plugins/prettyfile/bootstrap-prettyfile.js}"></script>
+    <script th:src="@{static/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+    <script th:src="@{static/js/plugins/colorpicker/bootstrap-colorpicker.min.js}"></script>
+    <script th:src="@{static/js/plugins/clockpicker/clockpicker.js}"></script>
+    <script th:src="@{static/js/plugins/cropper/cropper.min.js}"></script>
+    <script>
+        window.onload = function(){
+            var app = new Vue({
+                el:'#app',
+                data:{
+                    cur:0,
+                    cur2:0
+                },
+                methods: {
+                    openSwitch:function(){
+                        this.cur = !this.cur;
+                    },
+                    openSwitch2:function (){
+                        this.cur2 = !this.cur2;
+                    }
+                },
+            });
+        }
+    </script>
+</body>
+
+</html>

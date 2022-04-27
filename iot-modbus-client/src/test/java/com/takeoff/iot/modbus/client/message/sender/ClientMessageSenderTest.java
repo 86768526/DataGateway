@@ -10,11 +10,7 @@ import org.junit.Test;
 
 import com.takeoff.iot.modbus.common.message.MiiMessage;
 
-/**
- * 类功能说明：上传指令测试<br/>
- * 公司名称：TF（腾飞）开源 <br/>
- * 作者：luorongxi <br/>
- */
+
 @Slf4j
 public class ClientMessageSenderTest {
 

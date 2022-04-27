@@ -2,11 +2,7 @@ package com.takeoff.iot.modbus.common.entity;
 
 import lombok.Data;
 
-/**
- * 类功能说明：门锁状态实体类<br/>
- * 公司名称：TF（腾飞）开源 <br/>
- * 作者：luorongxi <br/>
- */
+
 @Data
 public class LcdData extends DeviceData {
 

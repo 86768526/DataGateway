@@ -1,22 +1,21 @@
 package com.takeoff.iot.modbus.server;
 
 import java.util.List;
+import java.util.Queue;
 import java.util.concurrent.TimeUnit;
-
 import com.takeoff.iot.modbus.netty.device.MiiDeviceChannel;
 import com.takeoff.iot.modbus.netty.device.MiiDeviceGroup;
 import com.takeoff.iot.modbus.netty.device.MiiControlCentre;
 import com.takeoff.iot.modbus.common.bytes.factory.MiiDataFactory;
-import com.takeoff.iot.modbus.common.data.MiiHeartBeatData;
 import com.takeoff.iot.modbus.common.message.MiiMessage;
 import com.takeoff.iot.modbus.netty.channel.MiiChannel;
 import com.takeoff.iot.modbus.netty.channel.MiiChannelGroup;
 import com.takeoff.iot.modbus.netty.data.factory.MiiServerDataFactory;
 import com.takeoff.iot.modbus.netty.handle.MiiBasedFrameDecoder;
-import com.takeoff.iot.modbus.netty.handle.MiiListenerHandler;
+import com.takeoff.iot.modbus.netty.handle.TcpServerHandler;
 import com.takeoff.iot.modbus.netty.handle.MiiMessageDecoder;
 import com.takeoff.iot.modbus.netty.handle.MiiMessageEncoder;
-import com.takeoff.iot.modbus.netty.listener.MiiListener;
+import com.takeoff.iot.modbus.netty.handle.ais.AisTcpServerHandler;
 import com.takeoff.iot.modbus.server.message.sender.MiiServerMessageSender;
 import com.takeoff.iot.modbus.server.message.sender.ServerMessageSender;
 import io.netty.bootstrap.ServerBootstrap;
@@ -28,7 +27,6 @@ import io.netty.channel.ChannelPipeline;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
-import io.netty.channel.socket.nio.NioDatagramChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
@@ -37,16 +35,11 @@ import io.netty.handler.timeout.IdleStateHandler;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
-/**
- * 类功能说明：设备通讯服务端<br/>
- * 公司名称：TF（腾飞）开源 <br/>
- * 作者：luorongxi <br/>
- */
+
 @Slf4j
 public class MiiServer extends ChannelInitializer<SocketChannel> implements MiiControlCentre {
 	
 	private static final int IDLE_TIMEOUT = 60;
-	
 	private EventLoopGroup bossGroup;
 	private EventLoopGroup workerGroup;
 	private ChannelFuture future;
@@ -54,38 +47,32 @@ public class MiiServer extends ChannelInitializer<SocketChannel> implements MiiC
 	@Getter
 	private MiiChannelGroup groups;
 	private ServerMessageSender sender;
-	private MiiListenerHandler handler;
+	private TcpServerHandler handler;
 	private MiiDataFactory dataFactory;
+	public Queue<String> messageQ ;
 
 	/**
 	 * 创建指定服务端口，默认线程数的服务端
 	 * @param port 服务端口
 	 */
-	public MiiServer(int port){
-		this(port, 0);
+	public MiiServer(int port,TcpServerHandler handler){
+		this(port, 0,handler);
 	}
-	
+	public MiiServer(String ipAdress,Integer port,TcpServerHandler handler){
+		this(port, 0,handler);
+	}
 	/**
 	 * 创建指定服务端口，指定线程数的服务端
 	 * @param port 服务端口
 	 * @param nThread 执行线程池线程数
 	 */
-	public MiiServer(int port, int nThread){
+	public MiiServer(int port, int nThread,TcpServerHandler handler){
 		this.port = port;
 		this.nThread = nThread;
 		this.groups = new MiiChannelGroup();
 		this.sender = new MiiServerMessageSender(this.groups);
-		this.handler = new MiiListenerHandler(this.groups);
-		this.handler.addListener(MiiMessage.HEARTBEAT, new MiiListener() {
-			
-			@Override
-			public void receive(MiiChannel channel, MiiMessage message) {
-				MiiHeartBeatData data = (MiiHeartBeatData) message.data();
-				//通讯通道绑定设备组编码
-				groups.get(message.deviceGroup()).name(data.deviceGroup());
-				log.info("Netty通讯已绑定设备组编码："+data.deviceGroup());
-			}
-		});
+		this.messageQ = handler.messageQ;
+		this.handler = handler;
 		this.dataFactory = new MiiServerDataFactory();
 	}
 	
@@ -100,6 +87,7 @@ public class MiiServer extends ChannelInitializer<SocketChannel> implements MiiC
          .channel(NioServerSocketChannel.class)
          .handler(new LoggingHandler(LogLevel.INFO))
          .childHandler(this);
+        log.info("开启TPC数据接收端口："+port);
         future = b.bind(port);
 	}
 	
@@ -140,18 +128,18 @@ public class MiiServer extends ChannelInitializer<SocketChannel> implements MiiC
 	 * @param listener 消息监听器
 	 * @return 上一个消息监听器，如果没有返回null
 	 */
-	public MiiListener addListener(int command, MiiListener listener){
-		return handler.addListener(command, listener);
-	}
+//	public MiiListener addListener(int command, MiiListener listener){
+//		return handler.addListener(command, listener);
+//	}
 	
 	/**
 	 * 移除接收指定指令的消息监听器
 	 * @param command 指令类型 {@link MiiMessage}
 	 * @return 移除消息监听器，如果没有返回null
 	 */
-	public MiiListener removeListener(int command){
-		return handler.removeListener(command);
-	}
+//	public MiiListener removeListener(int command){
+//		return handler.removeListener(command);
+//	}
 	
 	@Override
 	protected void initChannel(SocketChannel ch) throws Exception {
@@ -187,7 +175,8 @@ public class MiiServer extends ChannelInitializer<SocketChannel> implements MiiC
 	}
 
 	@Override
-	public MiiChannel get(String name) {
+	public MiiChannel get(String name){
 		return groups.get(name);
 	}
+
 }

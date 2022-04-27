@@ -1,10 +1,6 @@
 package com.takeoff.iot.modbus.serialport.service;
 
-/**
- * 类功能说明：串口通讯接口<br/>
- * 公司名称：TF（腾飞）开源 <br/>
- * 作者：luorongxi <br/>
- */
+
 public interface SerialportService {
 
     /**
