@@ -1,19 +1,19 @@
-package com.takeoff.iot.modbus.netty.handle.gps;
+package com.takeoff.iot.modbus.netty.handle.ads_b;
 
 import com.takeoff.iot.modbus.common.message.MiiMessage;
 import com.takeoff.iot.modbus.netty.handle.MessageQ;
 import com.takeoff.iot.modbus.netty.handle.TcpServerHandler;
+import com.takeoff.iot.modbus.netty.handle.gps.GPSAnalysis;
+import com.takeoff.iot.modbus.netty.handle.gps.GPSInfo;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Queue;
-
 @Slf4j
 @Sharable
-public class GpsTcpServerHandler extends TcpServerHandler {
+public class AdsbTcpServerHandler extends TcpServerHandler {
 
-	public GpsTcpServerHandler(MessageQ<String> messageQ, MessageQ messageSendQ ,MessageQ<String> httpMessageQ ){
+	public AdsbTcpServerHandler(MessageQ<String> messageQ, MessageQ messageSendQ , MessageQ<String> httpMessageQ ){
 		super(messageQ,messageSendQ,httpMessageQ);
 	}
 
@@ -22,7 +22,7 @@ public class GpsTcpServerHandler extends TcpServerHandler {
 //		 this.messageQ.add(message);
 //		final String[] message = new String[1];
 		String data = new  String(msg.data().toBytes(),"GBK");
-		GPSInfo  gpsInfo = GPSAnalysis.GNRMCAnalysis(data);
+		GPSInfo gpsInfo = GPSAnalysis.GNRMCAnalysis(data);
 		if(null == gpsInfo){
 			throw new Exception(" GPS数据解析失败，请检查数据格式");
 		}

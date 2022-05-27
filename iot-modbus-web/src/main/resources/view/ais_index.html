@@ -360,7 +360,8 @@
     <script th:src="@{/static/js/eventsource.js}"></script>
     <script>
         window.onload = function(){
-           // var source ;
+            var tcpsource ;
+            var udpsource ;
             var app = new Vue({
                 el:'#app',
                 data:{
@@ -378,7 +379,7 @@
                             async:false,
                             success: function(data){
                                 alert(data.msg);
-                                source.close();
+                                udpsource.close();
                             }
                         });
                     },
@@ -392,7 +393,7 @@
                             async:false,
                             success: function(data){
                                 alert(data.msg);
-                                source.close();
+                                tcpsource.close();
                             }
                         });
                     },
@@ -417,20 +418,20 @@
                                 alert(data.msg);
                                 if (typeof (EventSource) !== "undefined") {
                                     debugger
-                                   var source = new EventSourcePolyfill("ais/eventSourceServer",{
+                                    udpsource = new EventSourcePolyfill("ais/eventSourceServer",{
                                         headers: {
                                             'port': udpport
                                         }
                                     });//,{ withCredentials: true }跨域
-                                    source.onmessage = function (event) {
+                                    udpsource.onmessage = function (event) {
                                         //debugger
                                         document.getElementById("datalog").innerHTML += event.data + "<br>";
                                     };
-                                    source.onerror = function (event) {
+                                    udpsource.onerror = function (event) {
                                         //debugger
                                         console.log("error:" + JSON.stringify(event) + JSON.stringify(source));
                                     }
-                                    source.onopen = function (event) {
+                                    udpsource.onopen = function (event) {
                                         //console.log('开始连接');
                                         //debugger
                                         console.log("open:" + JSON.stringify(event));
@@ -454,20 +455,20 @@
                                 alert(data.msg);
                                 if (typeof (EventSource) !== "undefined") {
                                     debugger
-                                    var source = new EventSourcePolyfill("ais/eventSourceServer",{
+                                     tcpsource = new EventSourcePolyfill("ais/eventSourceServer",{
                                         headers: {
                                             'port': tcpport
                                         }
                                     });//,{ withCredentials: true }跨域
-                                    source.onmessage = function (event) {
+                                    tcpsource.onmessage = function (event) {
                                         //debugger
                                         document.getElementById("datalog").innerHTML += event.data + "<br>";
                                     };
-                                    source.onerror = function (event) {
+                                    tcpsource.onerror = function (event) {
                                         //debugger
                                         console.log("error:" + JSON.stringify(event) + JSON.stringify(source));
                                     }
-                                    source.onopen = function (event) {
+                                    tcpsource.onopen = function (event) {
                                         //console.log('开始连接');
                                         //debugger
                                         debugger

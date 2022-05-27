@@ -28,4 +28,14 @@ public class MessageQ<E> extends LinkedList<E> {
         return true;
     }
 
+    public static void main(String args[]){
+        MessageQ<String> m  = new MessageQ<String>(5);
+        for(int i=0;i<5;i++){
+            m.add("fervgfgb"+i);
+        }
+        for(int i=0;i<m.size;i++){
+            System.out.println(m.remove());
+        }
+        System.out.println(m);
+    }
 }

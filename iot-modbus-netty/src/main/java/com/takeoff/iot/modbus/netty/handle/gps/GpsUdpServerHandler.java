@@ -13,16 +13,26 @@ import java.util.Queue;
 @Slf4j
 public class GpsUdpServerHandler extends UdpServerHandler {
 
-	public GpsUdpServerHandler(MessageQ<String> messageQ, MessageQ<String> messageSendQ){
-		super(messageQ,messageSendQ);
+	public GpsUdpServerHandler(MessageQ<String> messageQ, MessageQ<String> messageSendQ,MessageQ<String> httpMessageQ){
+		super(messageQ,messageSendQ,httpMessageQ);
 	}
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, DatagramPacket packet) throws IOException {
 		String data = packet.content().toString(Charset.forName("GBK"));
 		GPSInfo  gpsInfo = GPSAnalysis.GNRMCAnalysis(data);
 		log.info("UDP RECEIVE GPS DATA:"+gpsInfo.toString());
-		this.messageQ.add("UDP RECEIVE GPS DATA"+data);
-		this.messageSendQ.add(gpsInfo.toString());
+		synchronized (this.messageQ) {
+			this.messageQ.add("UDP RECEIVE GPS DATA" + data);
+			this.messageQ.setNewDataFlag(true);
+		}
+		synchronized (this.UdpMessageSendQ) {
+			this.UdpMessageSendQ.add(gpsInfo.toString());
+			this.UdpMessageSendQ.setNewDataFlag(true);
+		}
+		synchronized (this.httpMessageSendQ){
+			this.httpMessageSendQ.add(gpsInfo.toString());
+			this.httpMessageSendQ.setNewDataFlag(true);
+		}
 		log.info(String.valueOf(this.messageQ.size()));
 	}
 }

@@ -12,10 +12,12 @@ public class TcpServerHandler extends SimpleChannelInboundHandler<MiiMessage> {
 //	private MiiControlCentre centre;
     public MessageQ<String> messageQ ;
 	public MessageQ<String> messageSendQ;
-	public TcpServerHandler(/**MiiControlCentre centre, **/MessageQ<String> messageQ ,MessageQ<String> messageSendQ){
+	public MessageQ<String> httpMessageSendQ;
+	public TcpServerHandler(/**MiiControlCentre centre, **/MessageQ<String> messageQ ,MessageQ<String> messageSendQ,MessageQ<String> httpMessageSendQ){
 //		this.centre = centre;
 		this.messageQ = messageQ;
 		this.messageSendQ = messageSendQ;
+		this.httpMessageSendQ = httpMessageSendQ;
 	}
 
 

@@ -15,8 +15,10 @@ import java.nio.charset.Charset;
 @Slf4j
 public class AisUdpServerHandler extends UdpServerHandler {
 
-	public AisUdpServerHandler(MessageQ<String> messageQ , MessageQ messageSendQ){
-		super(messageQ,messageSendQ);
+//	private String unCompletePacket = "";
+//	private String lastSource = "";
+	public AisUdpServerHandler(MessageQ<String> SourceMessageQ , MessageQ messageSendQ,MessageQ<String> httpMessageQ){
+		super(SourceMessageQ,messageSendQ,httpMessageQ);
 	}
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, DatagramPacket packet) throws IOException {
@@ -27,14 +29,23 @@ public class AisUdpServerHandler extends UdpServerHandler {
 			message[0] = aisMessage.toString();
 		});
 		streamReader.run();
+		if(null == message[0]){
+			this.messageQ.add("UDP RECEIVE UNRESOLVE PACKET: ******" + sourceStr.replaceAll("\n",""));
+			this.messageQ.setNewDataFlag(true);
+			return;
+		}
 		log.info(message[0]);
 		synchronized (this.messageQ) {
-			this.messageQ.add("UDP RECEIVE: ---" + sourceStr);
+			this.messageQ.add("UDP RECEIVE: ---" + sourceStr.replaceAll("\n",""));
 			this.messageQ.setNewDataFlag(true);
 		}
-		synchronized ((this.messageSendQ)) {
-			this.messageSendQ.add(message[0]);
-			this.messageSendQ.setNewDataFlag(true);
+		synchronized ((this.UdpMessageSendQ)) {
+			this.UdpMessageSendQ.add(message[0]);
+			this.UdpMessageSendQ.setNewDataFlag(true);
+		}
+		synchronized (this.httpMessageSendQ){
+			this.httpMessageSendQ.add(message[0]);
+			this.httpMessageSendQ.setNewDataFlag(true);
 		}
 		log.info(String.valueOf(this.messageQ.size()));
 	}

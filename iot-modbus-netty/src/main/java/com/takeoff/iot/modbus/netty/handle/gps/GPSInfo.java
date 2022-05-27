@@ -9,8 +9,8 @@ public class GPSInfo {
     public String GPSHeading;//航向
 
     public String toString(){
-        return "{Longitude:"+Longitude+"," +
-                "Latitude:"+Latitude+"," +
+        return "{longitude:"+Longitude+"," +
+                "latitude:"+Latitude+"," +
                 "Speed:"+Speed+"," +
                 "GPSStatus:"+GPSStatus+"," +
                 "GPSTime:"+GPSTime+"," +

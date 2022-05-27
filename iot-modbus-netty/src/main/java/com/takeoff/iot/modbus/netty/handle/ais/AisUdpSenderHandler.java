@@ -11,7 +11,7 @@ import java.io.IOException;
 public class AisUdpSenderHandler extends UdpServerHandler {
 
 	public AisUdpSenderHandler(MessageQ<String> messageQ, MessageQ<String> messageSendQ){
-		super(messageQ,messageSendQ);
+		super(messageQ,messageSendQ,null);
 	}
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, DatagramPacket packet) throws IOException {
